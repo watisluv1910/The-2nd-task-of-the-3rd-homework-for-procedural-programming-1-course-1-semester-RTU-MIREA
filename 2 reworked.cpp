@@ -6,7 +6,11 @@
 
 using namespace std;
 
-void f2rew() { // сделать красивый вывод через printf
+// Tasks:
+// проработать алгоритм с отрицательными процентами 
+// проверка вводимых данных через while
+
+void f2rew() { 
 	double S, n, r, m, error = 0.1, m_guess, step;
 	cout << "¬ведите величину суммы S:\n";
 	cin >> S;
@@ -21,7 +25,11 @@ void f2rew() { // сделать красивый вывод через printf
 		x /= 10;
 	}
 	error = pow(10, (deg_of_err)); // margin of error (depends on number of digits of m)
-	if (S / (n * 12) == m) // condition for percentage == 0
+	if (m > S) // checking the availability to pay arrears before interest will be accrued
+	{
+		cout << " редит выплачен первым платежом (т.к. проценты начисл€ютс€ после 1го мес€ца, а m > S).\nќпределить процент, под который выдана ссуда, невозможно.\n";
+	}
+	else if (S / (n * 12) == m) // condition for percentage == 0
 	{
 		cout << " редит выдан под нулевой процент.\n";
 	}
@@ -37,7 +45,7 @@ void f2rew() { // сделать красивый вывод через printf
 			printf("m_guess = %lf\t\t r = %lf\t\t iter = %d\t\t\n", m_guess, r, iter);
 			if (m_guess > m)
 			{
-				r -= step;
+				r-= step;
 				step /= 2;
 			}
 			if (2 * m_guess < m)
@@ -49,7 +57,7 @@ void f2rew() { // сделать красивый вывод через printf
 		}
 		//cout << "ќтрицательный результат: Cумма величиной " << S << ", котора€ гаситс€ мес€чными выплатами величиной " << m << " в течение " << n << " лет, выдана под процент " << r * 100 << " (с точностью до" << error << ").\n" << endl;
 		printf("\nm_guess = %lf\t\t r = %lf\t\t iter = %d\t\t\n", m_guess, r, iter);
-		printf("\nѕоложительный результат: Cумма величиной %.2lf, котора€ гаситс€ мес€чными выплатами величиной %.2lf в течение %.2lf лет, выдана под процент %.5lf (с погрешностью +- %lf).\n\n", S, m, n, r * 100, error);
+		printf("\nќтрицательный результат: Cумма величиной %.2lf, котора€ гаситс€ мес€чными выплатами величиной %.2lf в течение %.2lf лет, выдана под процент %lf (с погрешностью +- %lf).\n\n", S, m, n, r * 100, error);
 	}
 	else // condition for percentage > 0
 	{
@@ -74,10 +82,10 @@ void f2rew() { // сделать красивый вывод через printf
 			r += step;
 			m_guess = S * r * pow((1 + r), n) / (12 * (pow((1 + r), n) - 1));
 		}
-		//cout << "m_guess = " << m_guess << setw(10) << " r = " << r << setw(10) << " iter = " << iter << setw(10) << endl << endl;
+		//cout << "\nm_guess = " << m_guess << "\t\t" << " r = " << r << "\t\t" << " iter = " << iter << "\t\t" << endl << endl;
 		//cout << "ѕоложительный результат: Cумма величиной "<< S << ", котора€ гаситс€ мес€чными выплатами величиной " << m << " в течение " << n  << " лет, выдана под процент " << r * 100 << " (с погрешностью +- " << error << ").\n" << endl;
 		printf("\nm_guess = %lf\t\t r = %lf\t\t iter = %d\t\t\n", m_guess, r, iter);
-		printf("\nѕоложительный результат: Cумма величиной %.2lf, котора€ гаситс€ мес€чными выплатами величиной %.2lf в течение %.2lf лет, выдана под процент %.lf (с погрешностью +- %lf).\n\n", S, m, n, r * 100, error);
+		printf("\nѕоложительный результат: Cумма величиной %.2lf, котора€ гаситс€ мес€чными выплатами величиной %.2lf в течение %.2lf лет, выдана под процент %lf (с погрешностью +- %lf).\n\n", S, m, n, r * 100, error);
 	}
 }
 
