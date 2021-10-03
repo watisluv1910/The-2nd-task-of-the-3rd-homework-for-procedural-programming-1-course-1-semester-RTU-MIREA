@@ -3,23 +3,60 @@
 #include <math.h>
 #include <iomanip>
 #include <stdio.h> // for printf
+#include <typeinfo> // for type definition
 
 using namespace std;
 
 // Tasks:
 // проработать алгоритм с отрицательными процентами * done
-// проверка вводимых данных через while
+// проверка вводимых данных через while * done
 // доработать r начальное значение
 // доработать step начальное значение
 
+
+
+double err_check() { // function that check type error
+	double temp_var; // inicialization of temporary variable 
+	while (!(cin >> temp_var) || temp_var < 0) 
+	{
+		cout << "Ошибка ввода.\nВведите значение заново:\n";
+		cin.clear(); 
+		cin.ignore(numeric_limits<streamsize>::max(), '\n'); // operator >> will no longer fetch data from the stream as it is in the wrong format
+	}
+	return temp_var;
+}
+
+double err_check_for_negative() { // function that check type error
+	double temp_var; // inicialization of temporary variable 
+	while (!(cin >> temp_var))
+	{
+		cout << "Ошибка ввода.\nВведите значение заново:\n";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n'); // operator >> will no longer fetch data from the stream as it is in the wrong format
+	}
+	return temp_var;
+}
+
+int err_check_int() { // function that check type error
+	int temp_var; // inicialization of temporary variable 
+	while (!(cin >> temp_var) || temp_var < 0)
+	{
+		cout << "Ошибка ввода.\nВведите значение заново:\n";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n'); // operator >> will no longer fetch data from the stream as it is in the wrong format
+	}
+	return temp_var;
+}
+
+
 void f2rew() { 
-	double Sum, years, fractional_percent, monthly_payment, error = 0.1, monthly_payment_guess, step;
+	double Sum, years, fractional_percent, monthly_payment, error, monthly_payment_guess, step; // inicialization of variables
 	cout << "Введите величину суммы Sum:\n";
-	cin >> Sum;
+	Sum = err_check();
 	cout << "Введите величину месячных выплат m:\n";
-	cin >> monthly_payment;
+	monthly_payment = err_check_for_negative();
 	cout << "Введите количество лет n:\n";
-	cin >> years;
+	years = err_check();
 	int x = monthly_payment, deg_of_err = -8;
 	while (x > 0)
 	{
@@ -73,7 +110,7 @@ int main() {
 	setlocale(LC_ALL, "Russian");
 	cout << "Номер задачи не превышает 2.\n" << "Чтобы закончить работу, введите 0.\n";
 	cout << "Введите номер задачи: \n";
-	cin >> counter;
+	counter = err_check_int();
 	while (counter > 0)
 	{
 		switch (counter)
