@@ -10,8 +10,6 @@ using namespace std;
 // Tasks:
 // проработать алгоритм с отрицательными процентами * done
 // проверка вводимых данных через while * done
-// доработать r начальное значение
-// доработать step начальное значение
 
 
 
@@ -53,9 +51,9 @@ void f2rew() {
 	double Sum, years, fractional_percent, monthly_payment, error, monthly_payment_guess, step; // inicialization of variables
 	cout << "¬ведите величину суммы Sum:\n";
 	Sum = err_check();
-	cout << "¬ведите величину мес€чных выплат m:\n";
+	cout << "¬ведите величину мес€чных выплат monthly_payment:\n";
 	monthly_payment = err_check_for_negative();
-	cout << "¬ведите количество лет n:\n";
+	cout << "¬ведите количество лет years:\n";
 	years = err_check();
 	int x = monthly_payment, deg_of_err = -8;
 	while (x > 0)
@@ -87,7 +85,7 @@ void f2rew() {
 		while (fabs(monthly_payment_guess - monthly_payment) >= error)
 		{
 			iter += 1;
-			printf("m_guess = %lf\t\t r = %lf\t\t iter = %d\t\t\n", monthly_payment_guess, fractional_percent, iter);
+			printf("monthly_payment_guess = %lf\t\t r = %lf\t\t iter = %d\t\t\n", monthly_payment_guess, fractional_percent, iter);
 			if (monthly_payment_guess > monthly_payment)
 			{
 				fractional_percent -= step;
@@ -100,7 +98,7 @@ void f2rew() {
 			fractional_percent += step;
 			monthly_payment_guess = Sum * fractional_percent * pow((1 + fractional_percent), years) / (12 * (pow((1 + fractional_percent), years) - 1));
 		}
-		printf("\nm_guess = %lf\t\t r = %lf\t\t iter = %d\t\t\n", monthly_payment_guess, fractional_percent, iter);
+		printf("\nmonthly_payment_guess = %lf\t\t r = %lf\t\t iter = %d\t\t\n", monthly_payment_guess, fractional_percent, iter);
 		printf("\nѕоложительный результат: Cумма величиной %.2lf, котора€ гаситс€ мес€чными выплатами величиной %.2lf в течение %.2lf лет, выдана под процент %lf (с погрешностью +- %lf).\n\n", Sum, monthly_payment, years, fractional_percent * 100, error);
 	}
 }
